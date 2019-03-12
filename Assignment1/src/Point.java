@@ -17,8 +17,8 @@ public class Point {
 		return y;
 	}
 	
-	public double getDistance(Point origin) {
-		return Math.sqrt( Math.pow( origin.getX()-x , 2) + Math.pow( origin.getY()-y , 2));
+	public double getDistance() {
+		return Math.sqrt( Math.pow(x, 2) + Math.pow(y, 2));
 	}
 	
 	public String toString() {
