@@ -18,6 +18,7 @@ public class Point {
 	}
 	
 	public double getDistance() {
+		//Calculate the Distance from 0,0 to Point
 		return Math.sqrt( Math.pow(x, 2) + Math.pow(y, 2));
 	}
 	
