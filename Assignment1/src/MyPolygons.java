@@ -101,4 +101,16 @@ public class MyPolygons {
 			}
 		}
 	}
+	
+	public Polygon getHead() {
+		return head.getData();
+	}
+	
+	public Polygon getCurrent() {
+		return current.getData();
+	}
+	
+	public int getSize() {
+		return size;
+	}
 }
