@@ -53,8 +53,9 @@ public class Polygon implements ComparePoly {
 		for(int i = 0; i < pointArraySize; i++) {
 			result += ( pointArray[i+1].getX() + pointArray[i].getX() ) * ( pointArray[i+1].getY() - pointArray[i].getY() );
 		}
-		//Divide the result by 2
-		return result / 2;
+		//Divide the result by 2 and make it absolute
+		result = Math.abs(result / 2.0);
+		return result;
 	}
 
 	public boolean ComesBefore(Polygon o) {

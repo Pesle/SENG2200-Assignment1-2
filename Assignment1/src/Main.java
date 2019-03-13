@@ -25,7 +25,13 @@ public class Main {
         
         importFile(name, list1);
         
+        list2 = sortList(list1);
+        
+        System.out.println("Unordered List");
         displayList(list1);
+        
+        System.out.println("Ordered List");
+        displayList(list2);
         
         console.close();
 
@@ -40,11 +46,10 @@ public class Main {
 	            String line = inputStream.nextLine ();
 	            String splited[] = line.split(" ");
 	            //Subtract the P and count the number of points
-	            int size = (splited.length-1)/2;
 	            if(splited.length > 1){
 	            	if(splited[0].equals("P")) {
-	            		list.prepend(new Polygon(size));
-	            		for(int i = 1; i > size; i+=2) {
+	            		list.prepend(new Polygon(Integer.parseInt(splited[1])));
+	            		for(int i = 2; Integer.parseInt(splited[1])*2+2 > i; i+=2) {
 	                		list.getHead().addPoint(Integer.parseInt(splited[i]),Integer.parseInt(splited[i+1]));
 	                	}
 	                } 
@@ -67,5 +72,48 @@ public class Main {
 		}else {
 			System.out.println("List is Empty");
 		}
+	}
+	
+	public static MyPolygons sortList(MyPolygons list) {
+		MyPolygons newList = new MyPolygons();
+		if(list.getSize() > 0) {
+			newList.append(list.getHead());
+			list.step();
+			for(int i = 1; list.getSize() > i; i++) {
+				boolean last = true;
+				newList.reset();
+				for(int j = 0; newList.getSize() > j; j++) {
+					if(list.getCurrent().getArea() > newList.getCurrent().getArea()) {
+						
+						System.out.println(list.getCurrent().getArea() +" > " + newList.getCurrent().getArea());
+						
+						if(newList.getSize()- 1 > j) {
+							newList.step();
+							last = false;
+						}else {
+							last = true;
+						}
+					}else {
+						System.out.println(list.getCurrent().getArea() +" < " + newList.getCurrent().getArea());
+						last = false;
+						break;
+					}
+				}
+				if(last == true) {
+					System.out.println(list.getCurrent().getArea() +" Appended");
+					newList.append(list.getCurrent());
+				}else if(newList.getCurrent() == list.getHead()) {
+					System.out.println(list.getCurrent().getArea() +" Prepended");
+					newList.prepend(list.getCurrent());
+				}else {
+					System.out.println(list.getCurrent().getArea() +" Inserted");
+					newList.insert(list.getCurrent());
+				}
+				list.step();
+			}
+		}else {
+			System.out.println("List is Empty");
+		}
+		return newList;
 	}
 }

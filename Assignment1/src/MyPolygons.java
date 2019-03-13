@@ -12,6 +12,8 @@ public class MyPolygons {
 		if(size == 0) {
 			//If the list is empty, set new node as head
 			head = new Node(data, null, null);
+			head.setNext(head);
+			head.setPrevious(head);
 			current = head;
 			size = 1;
 		}else {
@@ -31,6 +33,8 @@ public class MyPolygons {
 		if(size == 0) {
 			//If the list is empty, set new node as head
 			head = new Node(data, null, null);
+			head.setNext(head);
+			head.setPrevious(head);
 			current = head;
 			size = 1;
 		}else {
@@ -48,6 +52,8 @@ public class MyPolygons {
 		if(size == 0) {
 			//If the list is empty, set new node as head
 			head = new Node(data, null, null);
+			head.setNext(head);
+			head.setPrevious(head);
 			current = head;
 			size = 1;
 		}else {
@@ -95,6 +101,7 @@ public class MyPolygons {
 				head.getNext().setPrevious(head.getPrevious());
 				//Set head as the heads next
 				head = temp.getNext();
+				current = head;
 				//Remove temp
 				temp = null;
 				size--;
@@ -107,11 +114,12 @@ public class MyPolygons {
 	}
 	
 	public Polygon getCurrent() {
-		return current.getData();
+		if(current != null)
+			return current.getData();
+		return null;
 	}
 	
 	public int getSize() {
 		return size;
 	}
-	
 }
