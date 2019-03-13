@@ -76,39 +76,56 @@ public class Main {
 	
 	public static MyPolygons sortList(MyPolygons list) {
 		MyPolygons newList = new MyPolygons();
+		//Check if list is empty
 		if(list.getSize() > 0) {
+			//Add head to new list
 			newList.append(list.getHead());
+			//Progress main list
 			list.step();
+			
+			//Go through main list
 			for(int i = 1; list.getSize() > i; i++) {
+				//Used for checking if it reached the end of the new list
 				boolean last = true;
+				
+				//Reset the newList to Head
 				newList.reset();
+				
+				//Go through new list
 				for(int j = 0; newList.getSize() > j; j++) {
+					
+					//Check if current main list value is larger then current new list value
 					if(list.getCurrent().getArea() > newList.getCurrent().getArea()) {
 						
-						System.out.println(list.getCurrent().getArea() +" > " + newList.getCurrent().getArea());
-						
+						//Check if the new list has reached the end of the list
 						if(newList.getSize()- 1 > j) {
+							//Has not reached end of list, so progress through list
 							newList.step();
 							last = false;
 						}else {
+							//Has reached the end of the list
 							last = true;
 						}
 					}else {
-						System.out.println(list.getCurrent().getArea() +" < " + newList.getCurrent().getArea());
+						//Has not reached the end of the list, but is smaller then the new list value
 						last = false;
 						break;
 					}
 				}
+				//If list reached the end, append the new data
 				if(last == true) {
-					System.out.println(list.getCurrent().getArea() +" Appended");
 					newList.append(list.getCurrent());
-				}else if(newList.getCurrent() == list.getHead()) {
-					System.out.println(list.getCurrent().getArea() +" Prepended");
+					
+				//If list never moved, prepend the new data
+				}else if(newList.getCurrent() == newList.getHead()) {
 					newList.prepend(list.getCurrent());
+					
+				//If list moved in the middle, insert the new data
 				}else {
-					System.out.println(list.getCurrent().getArea() +" Inserted");
 					newList.insert(list.getCurrent());
 				}
+				
+				//Progress the main list
 				list.step();
 			}
 		}else {

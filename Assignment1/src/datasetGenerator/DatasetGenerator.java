@@ -7,7 +7,7 @@ public class DatasetGenerator {
         //Initiate variables and scanner
         
         String fileName = "superTest.dat";
-        int polygons = 5;
+        int polygons = 20;
         int maxValue = 10;
         int minValue = 0;
         int maxSides = 10;
