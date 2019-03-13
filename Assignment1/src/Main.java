@@ -47,7 +47,7 @@ public class Main {
 	            		for(int i = 1; i > size; i+=2) {
 	                		list.getHead().addPoint(Integer.parseInt(splited[i]),Integer.parseInt(splited[i+1]));
 	                	}
-	                }
+	                } 
 	            }
 	        }
 	        inputStream.close ();
