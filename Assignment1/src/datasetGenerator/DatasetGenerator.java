@@ -6,8 +6,10 @@ public class DatasetGenerator {
 	public static void main(String[] args) {
         //Initiate variables and scanner
         
+		boolean integers = false;
+		
         String fileName = "superTest.dat";
-        int polygons = 20;
+        int polygons = 100;
         int maxValue = 10;
         int minValue = 0;
         int maxSides = 10;
@@ -28,8 +30,13 @@ public class DatasetGenerator {
             	int randomSides = (int )(Math.random() * maxSides + minSides);
             	String result = "P "+randomSides+" ";
             	for(int j=0; j<randomSides*2; j++){
-            		int randomValue = (int )(Math.random() * maxValue + minValue);
-            		result += randomValue+" ";
+            		if(integers) {
+            			int randomValue = (int )(Math.random() * maxValue + minValue);
+            			result += randomValue+" ";
+            		}else {
+            			double randomValue = (double )(Math.random() * maxValue + minValue);
+            			result += randomValue+" ";
+            		}
             	}
                 outFile.print(result+"\r\n");
             }

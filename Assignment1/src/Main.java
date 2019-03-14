@@ -25,10 +25,10 @@ public class Main {
         
         importFile(name, list1);
         
-        list2 = sortList(list1);
-        
         System.out.println("Unordered List");
         displayList(list1);
+        
+        list2 = sortList(list1);
         
         System.out.println("Ordered List");
         displayList(list2);
@@ -50,7 +50,7 @@ public class Main {
 	            	if(splited[0].equals("P")) {
 	            		list.prepend(new Polygon(Integer.parseInt(splited[1])));
 	            		for(int i = 2; Integer.parseInt(splited[1])*2+2 > i; i+=2) {
-	                		list.getHead().addPoint(Integer.parseInt(splited[i]),Integer.parseInt(splited[i+1]));
+	                		list.getHead().addPoint(Double.parseDouble(splited[i]),Double.parseDouble(splited[i+1]));
 	                	}
 	                } 
 	            }
@@ -95,7 +95,19 @@ public class Main {
 				for(int j = 0; newList.getSize() > j; j++) {
 					
 					//Check if current main list value is larger then current new list value
-					if(list.getCurrent().getArea() > newList.getCurrent().getArea()) {
+					if(list.getCurrent().getArea() >= newList.getCurrent().getArea()) {
+						
+						//Check if the values are 0.05% within each other
+						if(Math.abs((newList.getCurrent().getArea()/list.getCurrent().getArea())-1) < (0.05 / 100.0)) {
+							
+							System.out.println(Math.abs((newList.getCurrent().getArea()/list.getCurrent().getArea())-1) + " - " + newList.getCurrent().getArea() + " - "+ list.getCurrent().getArea());
+							//Check if the new values minimum is smaller then the current main
+							if(newList.getCurrent().getMinDistance() > list.getCurrent().getMinDistance()) {
+								last = false;
+								break;
+							
+							}
+						}
 						
 						//Check if the new list has reached the end of the list
 						if(newList.getSize()- 1 > j) {
@@ -106,6 +118,7 @@ public class Main {
 							//Has reached the end of the list
 							last = true;
 						}
+						
 					}else {
 						//Has not reached the end of the list, but is smaller then the new list value
 						last = false;
