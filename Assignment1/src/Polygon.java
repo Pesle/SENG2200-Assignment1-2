@@ -56,8 +56,10 @@ public class Polygon implements ComparePoly {
 		return result;
 	}
 
-	public boolean ComesBefore(Polygon o) {
+	public boolean ComesBefore(Object o) {
 		//Check if the current Polygon is behind o
+		if(this.getArea() >= ((Polygon) o).getArea())
+			return true;
 		return false;
 	}
 }
