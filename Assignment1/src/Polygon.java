@@ -1,5 +1,5 @@
 
-public class Polygon implements ComparePoly {
+public class Polygon{
 	private Point pointArray[];
 	private int pointArraySize;
 	
@@ -22,7 +22,7 @@ public class Polygon implements ComparePoly {
 	}
 	
 	public String toString() {
-		String output = "[";
+		String output = "POLY=[";
 		//Get the result of every point
 		for(int i = 0; i < pointArraySize+1; i++) {
 			output += pointArray[i].toString();
@@ -30,10 +30,10 @@ public class Polygon implements ComparePoly {
 		return output +"]: "+String.format("%05.02f", getArea());
 	}
 	
-	public double getArea() {
+	public double area() {
 		double result = 0.00;
 		//Get every point and sum it all together
-		for(int i = 0; i < pointArraySize; i++) {
+		for(int i = 0; i < pointArraySize-2; i++) {
 			result += ( pointArray[i+1].getX() + pointArray[i].getX() ) * ( pointArray[i+1].getY() - pointArray[i].getY() );
 		}
 		//Divide the result by 2 and make it absolute
@@ -41,7 +41,7 @@ public class Polygon implements ComparePoly {
 		return result;
 	}
 	
-	public double getMinDistance() {
+	public double originDistance() {
 		//Set minimum distance to the first point
 		double result = pointArray[0].getDistance();
 		
@@ -54,12 +54,5 @@ public class Polygon implements ComparePoly {
 			}
 		}
 		return result;
-	}
-
-	public boolean ComesBefore(Object o) {
-		//Check if the current Polygon is behind o
-		if(this.getArea() >= ((Polygon) o).getArea())
-			return true;
-		return false;
 	}
 }

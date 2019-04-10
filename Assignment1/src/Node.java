@@ -1,11 +1,11 @@
 
-public class Node {
+public class Node<T> {
 	Node next;
 	Node previous;
 	
-	Polygon data;
+	T data;
 	
-	public Node(Polygon data, Node next, Node previous) {
+	public Node(T data, Node next, Node previous) {
 		this.data = data;
 		this.next = next;
 		this.previous = previous;
@@ -24,7 +24,7 @@ public class Node {
 	public Node getPrevious() {
 		return previous;
 	}
-	public Polygon getData() {
+	public T getData() {
 		return data;
 	}
 }
