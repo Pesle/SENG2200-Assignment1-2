@@ -2,7 +2,7 @@
 import java.util.*;
 import java.io.*;
 
-public class PA2 {
+public class PA2a {
 	
 	static LinkedList<PlanarShape> list1 = new LinkedList<PlanarShape>();
 	
@@ -12,9 +12,12 @@ public class PA2 {
     static boolean sortDebug = false;
 
 	public static void main(String[] args) {
-     
+		run(args);
+	}
+	
+	public static void run(String[] args) {
 		if(args.length == 0) {
-			System.out.println("Needs Arguments");
+			System.out.println("Needs Arguments!");
 		}else {
 	        String name = args[0];
 	        
@@ -33,7 +36,6 @@ public class PA2 {
 	        System.out.println("Ordered List");
 	        displayList(list2);
 		}
-
 	}
 	
 	public static void importFile(String name, LinkedList<PlanarShape> list) {
@@ -44,22 +46,12 @@ public class PA2 {
 	        
 	        while (inputStream.hasNextLine ()){
 	            String line = inputStream.nextLine ();
-	            String splited[] = line.split(" ");
-	            //Subtract the P and count the number of points
-	            if(splited.length > 1){
-	            	if(splited[0].equals("P")) {
-	            		
-	            		if(importDebug) System.out.print("Adding Row: "+list.getSize());
-	            		
-	            		list.prepend(new Polygon(Integer.parseInt(splited[1])));
-	            		for(int i = 2; Integer.parseInt(splited[1])*2+2 > i; i+=2) {
-	                		list.getHead().addPoint(Double.parseDouble(splited[i]),Double.parseDouble(splited[i+1]));
-	                	}
-	                } 
+	            PlanarShape newShape = shapeFactory(line);
+	            if(newShape != null) {
+	            	list.prepend(newShape);
 	            }
 	        }
 	        inputStream.close ();
-	        if(importDebug) System.out.println("DONE Import\n");
 		}
 		catch(IOException e){
             System.out.println("File Does Not Exist");
@@ -90,4 +82,24 @@ public class PA2 {
 		return newList;
 	}
 	
+	public static PlanarShape shapeFactory(String line) {
+		PlanarShape shape = null;
+		String splited[] = line.split(" ");
+		//Check the first line
+		switch(splited[0]) {
+			//If polygon
+			case "P":
+				shape = new Polygon(Integer.parseInt(splited[1]));
+				//Go through splited data and add points to shape
+				for(int i = 2; Integer.parseInt(splited[1])*2+2 > i; i+=2) {
+					if(!splited[i].equals(" ") && !splited[i].equals("") && !splited[i+1].equals(" ") && !splited[i+1].equals("")) {
+						shape.addPoint(Double.parseDouble(splited[i]),Double.parseDouble(splited[i+1]));
+					}
+		    	}
+				break;
+			default:
+				System.out.println(splited[0] + ": Unknown Shape!");
+		}
+		return shape;
+	}
 }

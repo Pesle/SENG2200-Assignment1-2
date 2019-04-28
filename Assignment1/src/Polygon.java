@@ -3,11 +3,11 @@ public class Polygon extends PlanarShape{
 	private Point pointArray[];
 	private int pointArraySize;
 	
-	public Polygon(int size)
-    {
+	public Polygon(int size) {
 		//Add an extra to repeat the first entry
 		pointArray = new Point[size+1];
 		pointArraySize = 0;
+		
     }
 
 	public void addPoint(double x, double y) {
@@ -24,7 +24,7 @@ public class Polygon extends PlanarShape{
 	public String toString() {
 		String output = "POLY=[";
 		//Get the result of every point
-		for(int i = 0; i < pointArraySize+1; i++) {
+		for(int i = 0; i < pointArraySize; i++) {
 			output += pointArray[i].toString();
 		}
 		return output +"]: "+String.format("%05.02f", area());
@@ -33,7 +33,7 @@ public class Polygon extends PlanarShape{
 	public double area() {
 		double result = 0.00;
 		//Get every point and sum it all together
-		for(int i = 0; i < pointArraySize-2; i++) {
+		for(int i = 0; i < pointArraySize; i++) {
 			result += ( pointArray[i+1].getX() + pointArray[i].getX() ) * ( pointArray[i+1].getY() - pointArray[i].getY() );
 		}
 		//Divide the result by 2 and make it absolute
