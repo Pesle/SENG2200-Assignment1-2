@@ -1,85 +1,66 @@
 
-public class SortedList<T> extends LinkedList<T>{
+public class SortedList<T extends Comparable<T>> extends LinkedList<T>{
 	SortedList(){
 		super();
 	}
 	
-	public void insertInOrder(LinkedList<T> list){	
-		//Check if list is empty
-		if(list.getSize() > 0) {
-			//Add head to new list
-			this.append(list.getHead());
-			
-			System.out.println(" 0	 Appended	 "+String.format("%05.06f", list.getCurrent().getArea()));
-			
-			//Progress main list
-			list.step();
-			
-			//Go through main list
-			for(int i = 1; list.getSize() > i; i++) {
-				//Used for checking if it reached the end of the new list
-				boolean last = true;
-				
-				//Reset the this to Head
-				this.reset();
-				
-				//Go through new list
-				for(int j = 0; this.getSize() > j; j++) {
-					
-					//Check if current main list value comes before current new list value
-					if(list.getCurrent().ComesBefore(this.getCurrent())) {
-						
-						//Check if the values are 0.05% within each other
-						if(Math.abs((this.getCurrent().getArea()/list.getCurrent().getArea())-1) < (0.05 / 100.0)) {
-							
-							System.out.println(" "+i+ "	 0.05% Diff	 "+String.format("%05.06f", this.getCurrent().getArea())+" - "+ String.format("%05.06f", list.getCurrent().getArea()));
-							
-							//Check if the new values minimum is smaller then the current main
-							if(this.getCurrent().getMinDistance() > list.getCurrent().getMinDistance()) {
-								last = false;
-								break;
-							
-							}
-						}
-						
-						//Check if the new list has reached the end of the list
-						if(this.getSize()- 1 > j) {
-							//Has not reached end of list, so progress through list
-							this.step();
-							last = false;
-						}else {
-							//Has reached the end of the list
-							last = true;
-						}
-						
-					}else {
-						//Has not reached the end of the list, but is smaller then the new list value
-						last = false;
-						break;
-					}
-				}
-				//If list reached the end, append the new data
-				if(last == true) {
-					this.append(list.getCurrent());
-					System.out.println(" "+i+ "	 Appended	 "+String.format("%05.06f", list.getCurrent().getArea()));
-					
-				//If list never moved, prepend the new data
-				}else if(this.getCurrent() == this.getHead()) {
-					this.prepend(list.getCurrent());
-					System.out.println(" "+i+ "	 Prepended	 "+String.format("%05.06f", list.getCurrent().getArea()));
-					
-				//If list moved in the middle, insert the new data
-				}else {
-					this.insert(list.getCurrent());
-					System.out.println(" "+i+ "	 Inserted	 "+String.format("%05.06f", list.getCurrent().getArea()));
-				}
-				
-				//Progress the main list
-				list.step();
-			}
-			System.out.println("DONE Sort\n");
+	public void insertInOrder(T data_){	
+		Node<T> current = sentinel.getNext();
+		if(size == 0) {
+			//Add the first entry
+			prepend(data_);
 		}else {
-			System.out.println("List is Empty");
+			//Used to find the last value in the list
+			boolean last = true;
+			//Used to see if the loop ever progressed
+			boolean looped = false;
+			
+			//Go through the list
+			while(current != sentinel) {
+				
+				//Check if current is smaller than new data
+				if(current.getData().compareTo(data_) == -1) {
+					
+					//Check if list has reached the end
+					if(current.getNext() == sentinel) {
+						last = true;
+						break;
+						
+					//If it has not reached the end, keep progressing
+					}else {
+						current = current.getNext();
+						last = false;
+					}
+					
+				//If it is larger, then stop the loop and add it
+				}else {
+					last = false;
+					break;
+				}
+				looped = true;
+				
+			}
+			//If list reached the end, add data to the end of the list
+			if(last) {
+				append(data_);
+			//If the list never progressed as data was smaller, add to the start of the list
+			}else if(!looped) {
+				prepend(data_);
+			//All else, insert data before current
+			}else {
+				insertBefore(current, data_);
+			}
 		}
 	}
+	
+	private void insertBefore(Node<T> current, T data_) {
+		//Create the new node, set its next as current, and its previous as currents previous
+		Node<T> newNode = new Node<T>(data_, current, current.getPrevious());
+		//Set currents previous next to new node
+		current.getPrevious().setNext(newNode);
+		//Set currents previous to the new node
+		current.setPrevious(newNode);
+		size++;
+	}
+	
 }

@@ -1,8 +1,9 @@
 
 public abstract class PlanarShape implements Comparable<PlanarShape>{
-	abstract String toString();
-	abstract double area();
-	abstract double originDistance();
+	public abstract void addPoint(double x, double y);
+	public abstract String toString();
+	public abstract double area();
+	public abstract double originDistance();
 
 
 	public interface Comparable {
@@ -17,12 +18,15 @@ public abstract class PlanarShape implements Comparable<PlanarShape>{
 				//Check if this has a smaller origin distance than O
 				if(this.originDistance() >= o.originDistance()) {
 					return 1;
+				}else {
+					return -1;
 				}
-				return -1;
+			}else {
+				return 1;
 			}
-			return 1;
+		}else {
+			return -1;
 		}
-		return -1;
 	}
 		
 }

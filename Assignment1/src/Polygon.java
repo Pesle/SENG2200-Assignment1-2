@@ -1,5 +1,5 @@
 
-public class Polygon{
+public class Polygon extends PlanarShape{
 	private Point pointArray[];
 	private int pointArraySize;
 	
@@ -27,7 +27,7 @@ public class Polygon{
 		for(int i = 0; i < pointArraySize+1; i++) {
 			output += pointArray[i].toString();
 		}
-		return output +"]: "+String.format("%05.02f", getArea());
+		return output +"]: "+String.format("%05.02f", area());
 	}
 	
 	public double area() {
