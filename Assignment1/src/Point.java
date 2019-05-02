@@ -24,5 +24,6 @@ public class Point {
 	
 	public String toString() {
 		return "("+String.format("%04.02f", x)+","+String.format("%04.02f", y)+")";
+		//return "("+x+","+y+")";
 	}
 }

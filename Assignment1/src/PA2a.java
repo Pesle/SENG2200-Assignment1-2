@@ -89,13 +89,17 @@ public class PA2a {
 		switch(splited[0]) {
 			//If polygon
 			case "P":
-				shape = new Polygon(Integer.parseInt(splited[1]));
-				//Go through splited data and add points to shape
-				for(int i = 2; Integer.parseInt(splited[1])*2+2 > i; i+=2) {
-					if(!splited[i].equals(" ") && !splited[i].equals("") && !splited[i+1].equals(" ") && !splited[i+1].equals("")) {
-						shape.addPoint(Double.parseDouble(splited[i]),Double.parseDouble(splited[i+1]));
-					}
-		    	}
+				if(splited.length-2 >= Integer.parseInt(splited[1])) {
+					shape = new Polygon(Integer.parseInt(splited[1]));
+					//Go through splited data and add points to shape
+					for(int i = 2; Integer.parseInt(splited[1])*2+2 > i; i+=2) {
+						if(!splited[i].equals(" ") && !splited[i].equals("") && !splited[i+1].equals(" ") && !splited[i+1].equals("")) {
+				    		shape.addPoint(Double.parseDouble(splited[i]),Double.parseDouble(splited[i+1]));
+						}
+			    	}
+				}else {
+					System.out.println(splited[0] +" "+ splited[1] + ": Not Enough Parameters");
+				}
 				break;
 			default:
 				System.out.println(splited[0] + ": Unknown Shape!");

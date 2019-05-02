@@ -18,6 +18,7 @@ public class Circle extends PlanarShape{
 		output += centerPoint.toString();
 		output += " "+ radius;
 		return output +"]: "+String.format("%05.02f", area());
+		//return output +"]: "+area();
 	}
 	
 	public double area() {

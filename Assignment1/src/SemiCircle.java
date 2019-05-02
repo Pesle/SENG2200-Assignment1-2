@@ -1,10 +1,11 @@
 
 public class SemiCircle extends PlanarShape{
-	private Point centerPoint;
-	private Point endPoint;
+	private Point centerPoint;	//0
+	private Point endPoint;		//1
 	
 	public SemiCircle(double x, double y){
 		endPoint = new Point(x, y);
+		
     }
 	
 	public void addPoint(double x, double y) {
@@ -17,6 +18,7 @@ public class SemiCircle extends PlanarShape{
 		//Add centerpoint and radius
 		output += centerPoint.toString() + endPoint.toString();
 		return output +"]: "+String.format("%05.02f", area());
+		//return output +"]: "+area();
 	}
 	
 	public double area() {
@@ -29,11 +31,34 @@ public class SemiCircle extends PlanarShape{
 	public double originDistance() {
 		//Set minimum distance to the first point
 		double result = centerPoint.getDistance();
-		//Check if endPoint is a shorter distance
+		
+		//Get normal vectors from points
+		Point normalA = new Point(
+				-(endPoint.getY()-centerPoint.getY()),
+				endPoint.getX()-centerPoint.getX());
+		Point normalB = new Point(
+				endPoint.getY()-centerPoint.getY(),
+				-(endPoint.getX()-centerPoint.getX()));
+		
+		//Get extreme points
+		Point extremeA = getExtreme(normalA);
+		Point extremeB = getExtreme(normalB);
+		
+		//Check for the shortest distance to origin
 		if(endPoint.getDistance() < centerPoint.getDistance()) {
 			result = endPoint.getDistance();
 		}
+		if(extremeA.getDistance() < result) {
+			result = extremeA.getDistance();
+		}
+		if(extremeB.getDistance() < result) {
+			result = extremeB.getDistance();
+		}
 		return Math.abs(result);
+	}
+	
+	private Point getExtreme(Point NormalVector) {
+		return new Point(centerPoint.getX() + NormalVector.getX(), centerPoint.getY() + NormalVector.getY());
 	}
 	
 }

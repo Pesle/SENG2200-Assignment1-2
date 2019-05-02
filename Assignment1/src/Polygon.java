@@ -28,6 +28,7 @@ public class Polygon extends PlanarShape{
 			output += pointArray[i].toString();
 		}
 		return output +"]: "+String.format("%05.02f", area());
+		//return output +"]: "+area();
 	}
 	
 	public double area() {
