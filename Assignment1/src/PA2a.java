@@ -75,15 +75,15 @@ public class PA2a {
         }
 	}
 	
-	public static void displayList(LinkedList<PlanarShape> list) {
+	public static void displayList(LinkedList<?> list) {
 		if(list.getSize() > 0) {
-			//Continue loop while the list hasnt reached the end to reset list
-			while(list.hasNext())
-				list.next();
-			//Go through the size of the array and print the shapes
-			for(int i = 0; list.getSize() > i; i++) {
-				System.out.println(i+":	"+list.next().toString());
+			Iterator<?> lsIterator = list.iterator();
+			int i = 0;
+			while (lsIterator.hasNext()) {
+				System.out.println(i+":	"+lsIterator.next().toString());
+				i++;
 			}
+
 		}else {
 			System.out.println("List is Empty");
 		}
@@ -93,8 +93,9 @@ public class PA2a {
 		SortedList<PlanarShape> newList = new SortedList<PlanarShape>();
 		//Check if the list is empty
 		if(list.getSize() > 0) {
-			for(int i = 0; list.getSize() > i; i++) {
-				newList.insertInOrder(list.next());
+			Iterator<?> lsIterator = list.iterator();
+			while (lsIterator.hasNext()) {
+				newList.insertInOrder((PlanarShape) lsIterator.next());
 			}
 		}else {
 			System.out.println("List is Empty");

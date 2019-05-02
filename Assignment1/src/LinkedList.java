@@ -8,17 +8,20 @@
 
 import java.util.Iterator;
 
-public class LinkedList<T> implements Iterator<T>{
+public class LinkedList<T> implements Iterable<T>{
 	final Node<T> sentinel;
 	int size;
-	Node<T> curPos;
 	
 	public LinkedList() {
 		sentinel = new Node<T>(null, null, null);
 		sentinel.setNext(sentinel);
 		sentinel.setPrevious(sentinel);
-		curPos = sentinel;
 		size = 0;
+	}
+	
+	@Override
+	public Iterator<T> iterator() {
+		return new ListIterator();
 	}
 	
 	public void prepend(T data) {
@@ -60,26 +63,36 @@ public class LinkedList<T> implements Iterator<T>{
 		return sentinel.getNext().getData();
 	}
 	
-	public T next() {
-		if(size == 0) {
-			try {
-				throw new Exception("List is Empty");
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			return null;
+	private class ListIterator implements Iterator<T> {
+		private Node<T> curPos;
+		
+		private ListIterator() {
+			curPos = sentinel;
 		}
-		if(hasNext())
-			curPos = curPos.getNext();
-		else
-			curPos = sentinel.getNext();
-		return curPos.getData();
-	}
-	
-	public boolean hasNext() {
-		//Check if next is the sentinel node
-		if(curPos.getNext() == sentinel)
-			return false;
-		return true;
+		
+		@Override
+		public T next() {
+			if(size == 0) {
+				try {
+					throw new Exception("List is Empty");
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				return null;
+			}
+			if(hasNext())
+				curPos = curPos.getNext();
+			else
+				curPos = sentinel.getNext();
+			return curPos.getData();
+		}
+		
+		@Override
+		public boolean hasNext() {
+			//Check if next is the sentinel node
+			if(curPos.getNext() == sentinel)
+				return false;
+			return true;
+		}
 	}
 }
