@@ -1,3 +1,11 @@
+/*
+ *  ----C3282137----
+ *  Ryan Jobse
+ *  SENG2200 S1 2019
+ *  Assignment 2
+ *  
+ */
+
 import java.util.Iterator;
 
 public class LinkedList<T> implements Iterator<T>{

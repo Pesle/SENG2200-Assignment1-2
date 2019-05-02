@@ -1,3 +1,10 @@
+/*
+ *  ----C3282137----
+ *  Ryan Jobse
+ *  SENG2200 S1 2019
+ *  Assignment 2
+ *  
+ */
 
 import java.util.*;
 import java.io.*;
@@ -44,6 +51,7 @@ public class PA2b {
 			File file = new File(name);
 			Scanner inputStream = new Scanner (file);
 	        
+			//Read contents into this string
 			String contents = new String();
 			
 	        while (inputStream.hasNextLine ()){
@@ -51,8 +59,10 @@ public class PA2b {
 	        }
 	        inputStream.close ();
 	        
+	        //Split contents by any capital letter
 	        String[] shapes = contents.split("(?=[A-Z])");
 	        
+	        //Add new shapes
 	        for(int i = 0; i < shapes.length; i++) {
 		        PlanarShape newShape = shapeFactory(shapes[i]);
 	            if(newShape != null) {
@@ -67,8 +77,10 @@ public class PA2b {
 	
 	public static void displayList(LinkedList<PlanarShape> list) {
 		if(list.getSize() > 0) {
+			//Continue loop while the list hasnt reached the end to reset list
 			while(list.hasNext())
 				list.next();
+			//Go through the size of the array and print the shapes
 			for(int i = 0; list.getSize() > i; i++) {
 				System.out.println(i+":	"+list.next().toString());
 			}
@@ -79,6 +91,7 @@ public class PA2b {
 	
 	public static SortedList<PlanarShape> sortList(LinkedList<PlanarShape> list){
 		SortedList<PlanarShape> newList = new SortedList<PlanarShape>();
+		//Check if the list is empty
 		if(list.getSize() > 0) {
 			for(int i = 0; list.getSize() > i; i++) {
 				newList.insertInOrder(list.next());

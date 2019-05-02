@@ -1,3 +1,10 @@
+/*
+ *  ----C3282137----
+ *  Ryan Jobse
+ *  SENG2200 S1 2019
+ *  Assignment 2
+ *  
+ */
 
 public class Node<T> {
 	Node<T> next;
